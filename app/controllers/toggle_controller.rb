@@ -1,5 +1,5 @@
 class ToggleController < ActionController::Base
-  http_basic_authenticate_with name: '', password: (ENV['FEATUREFLAG_PASSWORD'] || 'FEATUREFLAGBASIC')
+  http_basic_authenticate_with name: '', password: (ENV['FFLAG_PASSWORD'] || 'FEATUREFLAGBASIC')
 
   def index
     index = YAML.load_file(FeatureFlagConstants::FEATURE_FLAG_DEFINITION_PATH)
