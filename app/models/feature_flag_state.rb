@@ -1,0 +1,2 @@
+class FeatureFlagState < ApplicationRecord
+end
