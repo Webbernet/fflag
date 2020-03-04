@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   mount Fflag::Engine => '/dev'
 end
 ```
-The primary page is `/toggles`, so after mounting the above you would find the page at `localhost:3000/dev/toggles`. By default you the basic password is `FEATUREFLAGBASIC`, however you can change this by setting the `FEATUREFLAG_PASSWORD` environment variable.
+The primary page is `/toggles`, so after mounting the above you would find the page at `localhost:3000/dev/toggles`. By default you the basic password is `FEATUREFLAGBASIC`, however you can change this by setting the `FFLAG_PASSWORD` environment variable.
 
 ## Usage
 
