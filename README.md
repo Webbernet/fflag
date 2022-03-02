@@ -6,7 +6,7 @@ A simple feature flag Rails engine that allows you to change behaviour of produc
 Add to your Rails gemfile and install
 
 ```
-gem 'fflag', git: 'https://github.com/jake-webbernet/fflag', branch: 'master'
+gem 'fflag', git: 'https://github.com/Webbernet/fflag', branch: 'master'
 ```
 
 ```shell
