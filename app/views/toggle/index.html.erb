@@ -115,6 +115,12 @@
 
 <script type="text/javascript" charset="utf-8">
   $( document ).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('.toggle').on('click', function(event) {
       var activated = ($(event.target).prop('checked') == true)
 
