@@ -20,5 +20,7 @@ class ToggleController < ActionController::Base
     else
       state.update(activated: params[:toggle_on])
     end
+
+    ::Fflag::CacheManager.clear(params[:identifier])
   end
 end
