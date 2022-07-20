@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fflag (0.1.0)
+    fflag (0.1.1)
       rails (~> 5.1.6, >= 5.1.6.1)
 
 GEM
