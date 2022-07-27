@@ -44,6 +44,14 @@ end
 ```
 The primary page is `/toggles`, so after mounting the above you would find the page at `localhost:3000/dev/toggles`. By default you the basic password is `FEATUREFLAGBASIC`, however you can change this by setting the `FFLAG_PASSWORD` environment variable.
 
+Optionally you can add an initializer for the gem to customize configurations:
+
+```ruby
+# config/initializers/fflag.rb
+Fflag.configure do |config|
+  config.cache_enable = true # default: false
+end
+```
 ## Usage
 
 Use the `FeatureFlag` class to detect if a toggle is switched on or not. Use the `identifier`  that you specified in the flag_definitions file to reference.
