@@ -36,7 +36,7 @@ temporary:
 ```
 
 
-Mount the engine routes to your application so you can toggle your states. 
+Mount the engine routes to your application so you can toggle your states.
 ```ruby
 Rails.application.routes.draw do
   mount Fflag::Engine => '/dev'
@@ -66,7 +66,19 @@ if FeatureFlag.is_off? :email_redundancy_system
 end
 ```
 
-Switch feature flags on and off using the toggles page (see above)
+Switch feature flags on and off using the toggles page (see above).
+
+You can also switch feature flags on and off by:
+
+```ruby
+FeatureFlag.toggle_feature(:email_redundancy_system, true)
+```
+
+or
+
+```ruby
+FeatureFlag.toggle_feature(:disable_outbound_email_sending, false)
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
