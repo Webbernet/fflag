@@ -6,7 +6,8 @@ class ToggleController < ActionController::Base
     @facade = OpenStruct.new(
         permanent_toggles: index['permanent'],
         temporary_toggles: index['temporary'],
-        activated_toggles: FeatureFlagState.where(activated: true).map(&:identifier)
+        activated_toggles: FeatureFlagState.where(activated: true).map(&:identifier),
+        updated_timestamps: FeatureFlagState.all.map { |toggle| [toggle.identifier, toggle.updated_at] }.to_h
     )
   end
 
@@ -15,10 +16,11 @@ class ToggleController < ActionController::Base
     if !state
       FeatureFlagState.create!(
           identifier: params[:identifier],
-          activated: true
+          activated: true,
+          updated_at: Time.now
       )
     else
-      state.update(activated: params[:toggle_on])
+      state.update(activated: params[:toggle_on], updated_at: Time.now)
     end
 
     ::Fflag::CacheManager.clear(params[:identifier])

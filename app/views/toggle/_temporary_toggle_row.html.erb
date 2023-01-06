@@ -1,0 +1,27 @@
+<td class="details">
+  <h3> <%= toggle['name'] %> </h3>
+  <div class="ident">Identifier: <%= toggle['identifier'] %></div>
+  <br>
+  <%= toggle['description'] %>
+</td>
+
+<td class="updated-container" style="min-width: 130px; text-align:center;">
+  <% updated_at = @facade.updated_timestamps[toggle['identifier']] %>
+  <% if updated_at %>
+    <h4 style="color:<%= updated_at < 2.months.ago ? 'orange' : '' %>;">
+      <%= @facade.updated_timestamps[toggle['identifier']].strftime('%d/%m/%Y') %>
+    </h4>
+  <% else %>
+    <h4>N/A</h4>
+  <% end %>
+</td>
+
+<td class="switch-container" style="padding:0 20px;">
+  <label class="switch">
+    <input type="checkbox" id="<%= toggle['identifier'] %>" class="toggle" <%= activated ? 'checked' : ''  %>>
+    <span class="slider round"></span>
+  </label>
+</td>
+
+
+
