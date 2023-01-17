@@ -20,8 +20,13 @@ class FeatureFlag
 
   def self.toggle_feature(identifier, toggle_on)
     flag = FeatureFlagState.find_by(identifier: identifier)
-    return false if flag.nil?
-
-    flag.update(activated: toggle_on)
+    if flag.nil?
+      FeatureFlagState.create!(
+        identifier: identifier,
+        activated: toggle_on
+      )
+    else
+      flag.update(activated: toggle_on)
+    end
   end
 end
