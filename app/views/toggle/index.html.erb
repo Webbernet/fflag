@@ -2,110 +2,137 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
 <style>
+.toggle-table {
+  border-spacing: 0;
+  padding: 0 40px;
+}
 
-  .row-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-bottom: solid 1px #efe7e7;
-  }
+.toggle-table th {
+  padding: 15px 0;
+  font-size: 18px;
+  border-bottom: solid 1px #efe7e7;
+  /*border-top: solid 1px #efe7e7;*/
+  /*background-color: #f7f7f7;*/
+}
 
-  .deactivated-row {
-    color: #c7c7c7;
-  }
+.toggle-table td {
+  padding: 30px 5px;
+  border-bottom: solid 1px #efe7e7;
+}
 
-  .row-container h3 {
-    margin: 0px;
-  }
+.row-container {
+  padding: 20px;
+  border-bottom: solid 1px #efe7e7;
+}
 
-  .ident {
-    color: #ababab;
-  }
+.permanent-row-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: solid 1px #efe7e7;
+}
 
-  body {
-    font-family: 'Roboto', sans-serif;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #e8e8e8;
-  }
+.deactivated-row {
+  color: #c7c7c7;
+}
 
-  /* The switch - the box around the slider */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
+.row-container h3 {
+  margin: 0;
+}
 
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+.ident {
+  color: #ababab;
+}
 
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
+body {
+  font-family: 'Roboto', sans-serif;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e8e8e8;
+}
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
+.switch-container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
 
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
 
-  .slider.round:before {
-    border-radius: 50%;
-  }
+input:checked + .slider {
+  background-color: #2196F3;
+}
 
-  .card {
-    background-color: white;
-    padding: 20px;
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
 
-    box-shadow: 1px 1px 13px 0px #d8d5d5;
-    border-radius: 6px;
-  }
-    .section {
-      padding: 20px;
-      text-align: center;
-      background-color: #f7f7f7;
-      font-size: 21px;
-    }
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+
+  box-shadow: 1px 1px 13px 0px #d8d5d5;
+  border-radius: 6px;
+}
+.section {
+  padding: 20px;
+  text-align: center;
+  background-color: #f7f7f7;
+  font-size: 21px;
+}
 </style>
 
 <script
@@ -149,9 +176,19 @@
     Temporary
   </div>
   <div class="">
-    <% @facade.temporary_toggles.each do |toggle| %>
-      <%= render 'toggle/toggle_row', toggle: toggle %>
-    <% end %>
+    <table class="toggle-table">
+      <thead>
+        <th>Information</th>
+        <th>Updated</th>
+        <th></th>
+      </thead>
+      <% @facade.temporary_toggles.each do |toggle| %>
+        <% activated = @facade.activated_toggles.include?(toggle['identifier']) %>
+        <tr class="row-container <%= !activated ? 'deactivated-row' : '' %>">
+          <%= render 'toggle/temporary_toggle_row', toggle: toggle, activated: activated %>
+        </tr>
+      <% end %>
+    </table>
   </div>
   <% end %>
 
@@ -161,9 +198,9 @@
   <div class="section">
     Permanent
   </div>
-  <div class="">
+  <div>
     <% @facade.permanent_toggles.each do |toggle| %>
-      <%= render 'toggle/toggle_row', toggle: toggle %>
+      <%= render 'toggle/permanent_toggle_row', toggle: toggle %>
     <% end %>
   </div>
   <% end %>
