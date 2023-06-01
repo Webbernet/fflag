@@ -1,7 +1,7 @@
 
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-<style>
+<style nonce="<%= content_security_policy_nonce %>">
 
   .row-container {
     display: flex;
@@ -100,21 +100,30 @@
     box-shadow: 1px 1px 13px 0px #d8d5d5;
     border-radius: 6px;
   }
-    .section {
-      padding: 20px;
-      text-align: center;
-      background-color: #f7f7f7;
-      font-size: 21px;
-    }
+  .section {
+    padding: 20px;
+    text-align: center;
+    background-color: #f7f7f7;
+    font-size: 21px;
+  }
+  .section-divider {
+    margin-bottom: 40px
+  }
 </style>
 
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous" nonce="<%= content_security_policy_nonce %>"></script>
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8" nonce="<%= content_security_policy_nonce %>">
   $( document ).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('.toggle').on('click', function(event) {
       var activated = ($(event.target).prop('checked') == true)
 
@@ -155,7 +164,7 @@
   </div>
   <% end %>
 
-  <div style="margin-bottom: 40px"></div>
+  <div class="section-divider"></div>
 
   <% if @facade.permanent_toggles %>
   <div class="section">
