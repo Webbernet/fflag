@@ -17,4 +17,11 @@ class FeatureFlag
 
     raise RuntimeError.new("Cannot find '#{identifier}' FeatureFlag Identifier. Ensure its in the index YML")
   end
+
+  def self.toggle_feature(identifier, toggle_on)
+    check_exist(identifier)
+    flag = FeatureFlagState.find_or_create_by(identifier: identifier)
+    flag.update(activated: toggle_on)
+    ::Fflag::CacheManager.clear(identifier)
+  end
 end
